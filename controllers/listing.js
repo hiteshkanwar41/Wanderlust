@@ -2,10 +2,14 @@ const Listing=require("../models/listing.js");
 const axios = require("axios");
 const instance = require("../config/razorpay");
 
-module.exports.index=async (req,res)=>{
-        let allListings=await Listing.find({});
-        const currentPage="Home";
-        res.render("listings/index.ejs",{allListings,currentPage}); 
+module.exports.index = async (req, res) => {
+    let allListings = await Listing.find({});
+
+    axios.get("https://airbnb-ml-0y6j.onrender.com/")
+        .catch(err => console.log("Airbnb-ML warm-up:", err.message));
+
+    const currentPage = "Home";
+    res.render("listings/index.ejs", { allListings, currentPage });
 }
 
 module.exports.showListing=async(req,res)=>{

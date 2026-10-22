@@ -2,10 +2,13 @@ const Listing=require("../models/listing.js");
 let ExpressError=require("../utils/ExpressError.js")
 const cloudinary=require("../api/cloudinary.js");
 const Booking=require("../models/booking.js");
-
+const axios = require("axios");
 
 module.exports.home=async(req,res)=>{
     const listings = await Listing.find({ owner: req.user._id }).populate("reviews");
+
+    axios.get("https://airbnb-ml-0y6j.onrender.com/")
+    .catch(err => console.log("Airbnb-ML warm-up:", err.message));
     
     let totalRating = 0;
     let totalReviews = 0;
