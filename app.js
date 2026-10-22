@@ -19,7 +19,7 @@ const GoogleStrategy = require('passport-google-oidc');
 const User=require("./models/user.js");
 const GOOGLE_CLIENT_ID=process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET=process.env.GOOGLE_CLIENT_SECRET;
-const port=8080;
+const port = process.env.PORT || 8080;
 const {openLoginModal,isHost}=require("./middlewear.js");
 
 const paymentRouter = require("./routes/payment");
