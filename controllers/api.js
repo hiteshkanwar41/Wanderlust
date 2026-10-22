@@ -5,7 +5,7 @@ module.exports.fetchOverviewData=async (req, res) => {
     try {
         // The server (Node) talks to the server (Flask)
         // Browsers don't block server-to-server communication!
-        const result = await axios.get("http://127.0.0.1:5000/overview",
+        const result = await axios.get("https://airbnb-ml-0y6j.onrender.com/overview",
         {
             params: req.query
         });
@@ -17,7 +17,7 @@ module.exports.fetchOverviewData=async (req, res) => {
 }
 
 module.exports.fetchAnalyticsFilters=async(req,res)=>{
-        result=await axios.get("http://127.0.0.1:5000/filters",{
+        result=await axios.get("https://airbnb-ml-0y6j.onrender.com/filters",{
         params: req.query
     })
          res.json(result.data); 
@@ -52,7 +52,7 @@ module.exports.fetchAiInsights=async(req,res)=>{
         number_of_reviews:listing.reviews?.length+30 || 0
     }
         const result = await axios.post(
-        "http://127.0.0.1:5000/predict",{
+        "https://airbnb-ml-0y6j.onrender.com/predict",{
             "priceData":price_predictionData,
             "occupancyData":occupancy_prdictionData
         }
