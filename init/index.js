@@ -1,9 +1,10 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
 const initdata = require("./data.js");
 const Listing = require("../models/listing.js");
 
 async function main() {
-    await mongoose.connect("mongodb://127.0.0.1:27017/wanderlust");
+    await mongoose.connect(process.env.MONGODB_URI);
     console.log("Database connected successfully");
 
     await initDb();
@@ -14,7 +15,7 @@ async function main() {
 
 async function initDb() {
     try {
-        await Listing.deleteMany({});
+        
         
         await Listing.insertMany(initdata.data);
         console.log("Successfully saved");
@@ -25,4 +26,5 @@ async function initDb() {
 
 main().catch((err) => {
     console.log(err);
+    process.exitCode = 1;
 });

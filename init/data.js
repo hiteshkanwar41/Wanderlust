@@ -41,8 +41,8 @@
 //      demo1        -> 6a5c714168c1b324fc90a91d
 // ============================================================================
 
-const HOST_1 = "6a5008b6e827302463d8e7fa"; // hiteshkanwar
-const HOST_2 = "6a5c714168c1b324fc90a91d"; // demo1
+const HOST_1 = "6ada17375de6a00e265c702e";
+const HOST_2 = "6ada17375de6a00e265c702e";
 
 const sampleListings = [
   // ---------------- London ----------------
