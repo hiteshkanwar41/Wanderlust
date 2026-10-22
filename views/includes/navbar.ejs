@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-md  sticky-top border-bottom">
+  <div class="container-fluid">
+   <a class="navbar-brand" href="/listings">
+    <img src="https://res.cloudinary.com/lxlylk0n/image/upload/v1792675849/logo_fq04zt.png" alt="WanderLust Logo">
+    <span class="brand-wander">Wander</span><span class="brand-lust">Lust</span>
+  </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+     
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav center">
+        <a class="nav-link <% if (currentPage) {%><%= currentPage==="Home"?'active' : ''  %><% } %>"  href="/listings"><i class="fa-solid fa-house ms-1 me-1"></i> Home</a>
+        <a class="nav-link <% if (currentPage) {%><%= currentPage==="Mybookings"?'active' : ''  %><% } %> "  href="/listings/booking"><i class="fa-solid fa-calendar-check ms-1 me-1"></i> My Bookings</a>
+      </div>
+      <div class="navbar-nav ms-auto">
+       
+        <% if(!currUser) {%> 
+        <a class="nav-link"  href="/signup">Sign up Or Log in</a>
+        <% } %>
+        <% if(currUser) {%> 
+        <% if (isHost) { %>
+        <a class="nav-link" href="/hosting">Switch to Hosting</a>
+        <% } else { %>
+        <a class="nav-link" href="/hosting/new">Become a Host</a>
+          <% } %>
+        <a class="nav-link" href="/logout">Logout</a>
+         <% } %>
+      </div>
+      <!-- <button type="button" class="btn btn-dark airbnb-gradient" data-bs-toggle="modal" data-bs-target="#signupModal">
+          Launch demo modal
+      </button> -->
+      
+    </div>
+  </div>
+</nav>

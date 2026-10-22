@@ -1,0 +1,138 @@
+    <div class="modal fade" id="signupModal"  tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content  ">
+        
+        <div class="modal-body ">
+            
+            <div class="mainform">
+                    <div class="signupdiv ">
+                        <form method="POST" action="/signup" novalidate class="needs-validation" id="signupForm">
+                            
+                            <a class="button google_anchor" href="/login/federated/google">
+                                <i class="fa-brands fa-google"></i>
+                                Continue with Google
+                            </a>
+                            <div class="form-divider">
+                                <span>OR</span>
+                            </div>
+
+                        <div class="mb-3 mt-3">
+                            <label for="signupUsername" class="form-label"  >Username</label> 
+                            <input name="username" placeholder="Enter username" type="text" class="form-control" id="signupUsername" autocomplete="username" required>
+                        <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">Please enter a valid username</div>
+                        </div>
+                        <div class="mb-3 mt-3">
+                        <label for="signupEmail" class="form-label" >Email</label> 
+                            <input name="email" placeholder="Enter your emailId" type="email" class="form-control" id="signupEmail" autocomplete="email" required>
+                            <div id="emailFeedback"></div>
+                        </div>
+                        <div class="mb-3 mt-3">
+                            <label for="signupPassword" class="form-label" >Password</label> 
+                            <input name="password" placeholder="Enter your password" type="password" class="form-control" id="signupPassword" autocomplete="new-password" required>
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">Please enter a valid password</div>
+                        </div>
+                        <div>
+                            
+                        </div>
+                        <button class="btn btn-dark form-submit mb-3 mt-3" type="submit">Create Account</button>
+                            
+                        <p class="switch-form-text">
+                             Already have an account?
+                             <a href="#" class="switch-form-link" id="showSignup">Login</a>
+                        </p>
+                    </form>
+                    </div>
+                    
+                    <div class="logindiv ">
+                        <form method="POST" action="/login" novalidate class="needs-validation mt-3" id="loginForm">
+
+                            <a class="google_anchor" href="/login/federated/google">
+                                <i class="fa-brands fa-google"></i>
+                                Continue with Google
+                            </a>
+
+                            <div class="form-divider">
+                                <span>or continue with email</span>
+                            </div>
+                        <div class="mb-3 mt-3">
+                            <label for="loginEmail" class="form-label" >Email</label> 
+                            <input name="email" placeholder="Enter your emailId" type="email" class="form-control" id="loginEmail" autocomplete="email" required>
+                            <div class="invalid-feedback">Please enter a valid emailId</div>
+                        </div>
+                    
+                        <div class="mb-3 mt-3">
+                            <label for="loginPassword" class="form-label" >Password</label> 
+                            <input name="password" placeholder="Enter your password" type="password" class="form-control" id="loginPassword" autocomplete="current-password" required>
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">Please enter a valid password</div>
+                        </div>
+                       
+                        <button class="btn btn-dark form-submit mb-3 mt-3" type="submit">Login</button>
+
+                         <p class="switch-form-text">
+                             Don,t have an account?
+                             <a href="#" class="switch-form-link" id="showLogin">Sign Up</a>
+                        </p>
+                    </form>
+                    </div>
+                    
+                </div>
+            
+            
+            <div class="toggle-box">
+
+            <div class="toggle-panel toggle-left">
+                
+                <img
+                    src="https://res.cloudinary.com/lxlylk0n/image/upload/v1792675850/whitelogo_ywhgg9.png"
+                    class="auth-logo"
+                    alt=""
+                >
+                <h4 class="brand-name">WanderLust</h4>
+
+                 <h1>Welcome Back!</h1>
+
+                <p> Sign in to continue exploring, manage your bookings, 
+                    and plan your next getaway. </p>
+
+                <img
+                    src="https://res.cloudinary.com/lxlylk0n/image/upload/v1792675849/mountains_toaoqd.png"
+                    class="auth-landscape"
+                    alt=""
+                >
+                
+            </div>
+
+            <div class="toggle-panel toggle-right">
+               
+                    <img
+                    src="https://res.cloudinary.com/lxlylk0n/image/upload/v1792675850/whitelogo_ywhgg9.png"
+                    class="auth-logo"
+                    alt=""
+                    >
+                <h4 class="brand-name">WanderLust</h4>
+              
+                <div class="mt-4 mb-4"></div>
+               
+                <h1>Start Your Journey!</h1>
+
+                <p> Create your Wanderlust account to discover unique stays, 
+                    unforgettable destinations, and your next adventure. </p>
+
+                <img
+                    src="https://res.cloudinary.com/lxlylk0n/image/upload/v1792675849/mountains_toaoqd.png"
+                    class="auth-landscape"
+                    alt=""
+                >
+            </div>
+        </div>
+        </div>     
+        </div>
+        </div>
+    </div>
+    </div>
+
+
+

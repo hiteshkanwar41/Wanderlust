@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-md  sticky-top border-bottom">
+  <div class="container-fluid ">
+     <a class="navbar-brand" href="/listings">
+    <img src="https://res.cloudinary.com/lxlylk0n/image/upload/v1792675849/logo_fq04zt.png" alt="WanderLust Logo">
+    <span class="brand-wander">Wander</span><span class="brand-lust">Lust</span>
+  </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+     
+    <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
+      <div class="navbar-nav center">
+              <a class="nav-link <%= currentPage==="Home"?'active' : ''  %>" href="/hosting">Home</a>
+              <a class="nav-link <%= currentPage==="Listing"?'active' : ''  %>" href="/hosting/listing">Listings</a>
+              <a class="nav-link <%= currentPage==="Analytics"?'active' : ''  %>" href="/hosting/analytics">Analytics</a>
+            
+            </div>
+       <div class="navbar-nav ms-auto host-switch">
+            <a class="nav-link me-3"href="/listings">Switch to travelling</a>
+            <div class="profile-logo">
+              <img src="https://res.cloudinary.com/lxlylk0n/image/upload/v1792675849/user_hn2x9c.png" alt="Host">
+            </div>
+       </div>
+       
+      
+      
+    </div>
+  </div>
+</nav>

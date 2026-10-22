@@ -1,0 +1,95 @@
+
+    <% layout("/layouts/boilerplate.ejs") %>
+    
+   <div class="listing-header d-flex justify-content-between align-items-start mb-3 ms-3 me-3 mt-3">
+    <div>
+        <h2>All Listings</h2>
+        <p>Discover unique places to stay around the world.</p>
+    </div>
+    <div>
+                <input type="radio" class="btn-check" name="currency" id="usd" >
+                <label class="btn btn-outline-danger" for="usd">USD</label>
+
+                <input type="radio" class="btn-check" name="currency" id="inr">
+                <label class="btn btn-outline-danger" for="inr">INR</label>
+    </div>
+    
+</div>
+<div class="allListings mt-3 mb-3 ms-3 me-3">
+     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <% for(listing of allListings){ %>
+        <div class="col">
+            <a href="/listings/<%= listing._id %>" class="listing-link">
+                <div class="card h-100 listing-card">
+
+                <div class="image-wrapper">
+                    <img src="<%= listing.image.url %>"
+                    class="card-img-top"
+                    alt="listing">
+
+                    <div class="card-img-overlay"></div>
+                </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title"><%= listing.title %></h5>
+
+                        <span class="price-badge" id="price-badge" data-usd-price="<%= listing.price %>">
+                            $<%= listing.price.toLocaleString("en-US") %> / night
+                        </span>
+                    </div>
+             </div>
+        </a>
+       
+        </div>
+    <% } %>
+</div>
+</div>
+      
+
+<script>
+    let usdBtn =document.getElementById("usd");
+    let inrBtn =document.getElementById("inr");
+    let priceBadges=document.getElementsByClassName("price-badge");
+    
+    inrBtn.addEventListener("click",async ()=>{
+        let conversionRate = sessionStorage.getItem("conversionRate");
+        
+        try {
+            if (!conversionRate) {
+                const conversion = await axios.get("https://api.frankfurter.dev/v2/rate/USD/INR");
+                conversionRate = conversion.data.rate;
+                sessionStorage.setItem("conversionRate", conversionRate);
+            }
+            sessionStorage.setItem("currency", "INR");
+        } catch (err) {
+            console.error(err);
+            alert("Unable to fetch exchange rate. Please try again later.");
+            return;
+        }
+
+        conversionRate = Number(conversionRate);
+        
+        
+        for(const priceBadge of priceBadges){
+            const usdprice= Number(priceBadge.dataset.usdPrice);
+            const convertedPrice=(usdprice * conversionRate).toFixed(2);
+            priceBadge.textContent = `₹ ${convertedPrice} / night`;
+        }   
+    });
+
+    usdBtn.addEventListener("click",()=>{
+        sessionStorage.setItem("currency", "USD");
+        for (const priceBadge of priceBadges) {
+            const usdPrice = Number(priceBadge.dataset.usdPrice);
+            priceBadge.textContent = `$ ${usdPrice} / night`;
+        }
+    })
+    let currency=sessionStorage.getItem("currency") || "USD";
+    if(currency=="INR"){
+        inrBtn.click();
+    }else{
+        usdBtn.click();
+    }
+
+</script>
+       

@@ -1,0 +1,139 @@
+<% layout('layouts/analytics.ejs') -%>
+<% block('head').append('<link rel="stylesheet" href="/css/analytics_panel.css">') %>
+<div class="sub-container">
+    <%- include("../includes/analyticsSidebar.ejs") %>
+    <div class="content">
+        
+             <div class="page-title">
+                <h1>AI Insights</h1>
+                <p>Get AI-powered recommendations to improve your listings.</p>
+            </div>
+            
+            <div class="section-heading">
+                <div class="heading-left">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <span>Select a listing to get AI insights</span>
+                </div>
+
+                <button class="start-btn" id="generate-btn">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    Generate AI Insights
+                </button>
+            </div>
+
+           
+            <div class="ai-listing-wrapper">
+                <button class="scroll-btn next">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+
+                <div class="listingscrollbar">
+                <% for(listing of mylistings){ %>
+                    <%#The browser groups radio buttons by their name.%>
+                    <input type="radio" id=<%= listing._id %> name="listing" >
+                    <label for=<%= listing._id %>  class="ai-listing-card">
+                        
+                                <div class="ai-image-wrapper">
+                                    <img src="<%= listing.image.url %>"
+                                    class="card-img-top"
+                                    alt="listing">
+
+                                    <div class="card-img-overlay"></div>
+                                    
+                                </div>
+
+                                <div class="card-body">
+                                    
+                                    <div class="title-row">
+                                        <div class="select-icon">
+                                            <i class="fa-regular fa-square unchecked"></i>
+                                            <i class="fa-solid fa-square-check checked"></i>
+                                        </div> 
+                                        <h5 class="card-title"><%= listing.title %></h5>
+                                    </div>
+                                     <span class="price-badge">
+                                            $<%=listing.price.toLocaleString("en-US") %> / night
+                                    </span>
+                                   
+                                </div>
+
+
+                            
+                    </label>
+                <% } %>
+            </div>
+            </div>
+            
+            <div class="row mt-4">
+                <div class="col-6">
+                       
+                    <div class="ai-kpi-card" id="total_listings">
+                        <div class="prediction-header">
+                            <h3>Suggested Price</h3>
+                            <i class="fa-solid fa-money-bill-trend-up"></i>
+                        </div>  
+                         <div class="price-comparison">
+
+                            <div class="price-box">
+                                <p class="label">Current Price</p>
+                                <h2 id="currPrice">$180</h2>
+                                <span>/ night</span>
+                            </div>
+
+                            <div class="arrow">
+                                <i class="fa-solid fa-angle-right"></i>
+                            </div>
+
+                            <div class="price-box">
+                                <p class="label">AI Suggested</p>
+                                <h2 id="suggestedPrice">$205</h2>
+                                <span>/ night</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                   <div class="ai-kpi-card">
+
+                    <div class="occupancy-content">
+
+                            <!-- High Prediction -->
+                            <div class="occupancy-result high-result active">
+                                <div class="occupancy-icon high">
+                                    <i class="fa-solid fa-arrow-trend-up"></i>
+                                </div>
+
+                                <h3>High Expected Occupancy</h3>
+
+                                <p>
+                                    Your listing is expected to perform better than similar listings in this area.
+                                </p>
+                        </div>
+
+                        <!-- Low Prediction -->
+                        <div class="occupancy-result low-result">
+                            <div class="occupancy-icon low">
+                                <i class="fa-solid fa-arrow-trend-down"></i>
+                            </div>
+
+                            <h3>Low Expected Occupancy</h3>
+
+                            <p>
+                                Consider adjusting pricing, photos, or amenities to improve booking potential.
+                            </p>
+                        </div>
+
+                     </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+          
+
+            
+</div>
+    
+
+<script src="/js/aiInsights.js"></script>

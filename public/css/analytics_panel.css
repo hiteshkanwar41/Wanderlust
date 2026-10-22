@@ -1,0 +1,607 @@
+
+.upper{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:2rem;
+    margin-bottom:2rem;
+}
+.page-title{
+    flex:1;
+    margin-bottom:1.5rem;
+}
+.page-title h1{
+    font-size:2.2rem;
+    font-weight:700;
+    margin-bottom:.35rem;
+    color:#222;
+}
+
+.page-title p{
+    color:#6b7280;
+    font-size:.95rem;
+}
+
+
+.filterForm{
+    display:flex;
+    align-items:flex-end;
+}
+/* styling filter */
+.filters{
+    display:flex;
+    align-items:flex-end;
+    gap:1rem;
+    flex-wrap:wrap;
+    margin-bottom:2rem;
+}
+
+.filter-group{
+    display:flex;
+    flex-direction:column;
+    align-items: start;
+    gap:.35rem;
+    padding:0.9rem 1.25rem;
+    height:90px;
+    width:180px;
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:16px;
+    transition:all .2s ease;
+}
+.filter-group:hover{
+    border-color:#cfcfcf;
+    box-shadow:0 4px 12px rgba(0,0,0,.05);
+}
+
+.filter-group:focus-within{
+    border-color:#FF385C;
+    box-shadow:0 0 0 3px rgba(255,56,92,.12);
+}
+
+.filter-group label{
+    font-size:.82rem;
+    font-weight:600;
+    color:#222;
+    margin:0;
+}
+
+.filter-select{
+    border:none;
+    outline:none;
+    background:transparent;
+    padding:0;
+    font-size:1rem;
+    color:#717171;
+    cursor:pointer;
+}
+
+.apply-btn{
+    height:46px;
+    padding:0 28px;
+    border-radius:10px;
+    font-weight:600;
+    background:#FF385C;
+    color:#fff;
+   /* Align button visually with filter cards */
+    margin-bottom: 25px;
+}
+
+/* styling kip */
+
+.kpi{
+    display:grid;
+    /* "Create as many columns as possible. Each column should be at least 150px wide, and if there's extra space, let them expand evenly." */
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));  
+    gap:1.5rem;
+    margin-top:2rem;
+}
+.kpi-card{
+    width:100%;
+    display:flex;
+    align-items:center;
+    gap:1rem;
+    padding:0.8rem;
+    background:#fff;
+    border:1px solid #ebebeb;
+    border-radius:18px;
+    transition:.25s ease;
+}
+.kpi-card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(0,0,0,.06);
+}
+.kpi-icon{
+    width:52px;
+    height:52px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#fff1f2;
+    color:#FF385C;
+    border-radius:50%;
+    font-size:1.2rem;
+}
+.kpi-content{
+    display:flex;
+    flex-direction:column;
+    gap:.25rem;
+    
+}
+.kpi-title{
+    margin:0;
+    color:#717171;
+    font-size:.8rem;
+    font-weight:500;
+}
+
+.kpi-value{
+    margin:0;
+    font-size:1.5rem;
+    font-weight:700;
+    color:#222;
+}
+
+.kpi-subtitle{
+    margin:0;
+    color:#9ca3af;
+    font-size:.82rem;
+}
+
+/* styling charts */
+.chart-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1.5rem;
+}
+
+.chart-card{
+    background:#fff;
+    border:1px solid #ebebeb;
+    border-radius:18px;
+    padding:1.5rem;
+    box-shadow:0 4px 18px rgba(0,0,0,.04);
+    margin-bottom:0.8rem;
+    position:relative;
+    height:300px; 
+}
+
+.chart-card h5{
+    font-size:18px;
+    font-weight:600;
+    color:#2F2F2F;
+    margin-bottom:18px;
+}
+
+.full-width{
+    width:100%;
+}
+
+.chart-card canvas{
+    width:100% !important;
+    /* remove the forced height entirely */
+}
+
+/* tom-styling */
+
+.ts-wrapper{
+    position:relative;
+    width:100%;
+}
+
+.ts-wrapper::after{
+    content: "";
+    position: absolute;
+
+    width: 8px;
+    height: 8px;
+
+    border-right: 2px solid #777;
+    border-bottom: 2px solid #777;
+
+    transform: rotate(45deg);
+
+    right: 14px;
+    top: 42%;
+
+    pointer-events: none;
+    z-index: 100;
+}
+.ts-control{
+    height:44px;
+    border:none;
+    border-radius:8px;
+    background:#fff;
+    padding:0 2.5rem 0 12px !important;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:none !important;
+    
+}
+
+.ts-control .item{
+    font-size:14px;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+.ts-wrapper.focus .ts-control{
+    border-color:#888 !important;
+}
+
+.ts-dropdown{
+    border:1px solid #ddd;
+    border-radius:8px;
+    margin-top:4px;
+    box-shadow:0 8px 18px rgba(0,0,0,.08);
+}
+
+.ts-dropdown .option{
+    padding:10px 12px;
+}
+
+.ts-dropdown .option.active{
+    background:#f3f4f6;
+    color:#222;
+}
+
+
+/* Ai insights css */
+/* styling section heading  */
+.section-heading{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:.5rem;
+}
+
+
+.heading-left{
+    display:flex;
+    align-items:center;
+    gap:.6rem;
+}
+
+.heading-left{
+    display:flex;
+    align-items:center;
+    gap:.55rem;
+    font-size:1rem;
+    font-weight:600;
+    color:#222;
+}
+
+.heading-left i{
+    color:#8B5CF6;
+    font-size:.9rem;
+}
+
+
+
+.section-subtitle{
+    color:#6b7280;
+    margin-bottom:1.5rem;
+}
+
+.start-btn i{
+    font-size:1.1rem;
+}
+.start-btn{
+     margin-top:0.5rem;
+     height:2.8rem;
+}
+
+/* styling listing scrollbar */
+.listingscrollbar{
+    display:flex;
+    width:100%;
+    overflow-y: hidden;
+    overflow-x: auto;
+    gap:1rem;
+    padding:1rem 0 .5rem;
+    
+}
+
+/* scroll-btn css */
+.listing-wrapper{
+    position:relative;
+}
+
+.scroll-btn{
+    position:absolute;
+    top:50%;
+    right:1px;
+    width:56px;
+    height:56px;
+    border:none;
+    border-radius:50%;
+    background:white;
+    box-shadow:0 6px 18px rgba(0,0,0,.18);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+    z-index:100;
+    transition:.25s;
+}
+
+.scroll-btn:hover{
+    transform: scale(1.08);
+}
+
+.scroll-btn i{
+    font-size:1.2rem;
+    color:#444;
+}
+
+/* card stling */
+.ai-listing-card{
+    
+    border: none;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow:0 2px 10px rgba(0,0,0,.06);
+    transition: transform .25s ease, box-shadow .25s ease;
+    cursor: pointer;
+     width: 280px;
+    flex-shrink: 0;
+}
+
+.ai-listing-card:hover{
+    transform:translateY(-2px);
+    box-shadow: 0 15px 35px rgba(0,0,0,.15);
+}
+
+/* image wrapper,car-img-top are in style.css already */
+
+.ai-image-wrapper{
+    aspect-ratio:16/10;
+    overflow:hidden;
+    position: relative;
+    padding:.8rem .8rem 0;
+}
+
+.card-img-top{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius: 12px;
+}
+.card-img-top{
+    transition:transform .35s ease;
+}
+
+.ai-listing-card:hover .card-img-top{
+    transform:scale(1.05);
+}
+
+.card-img-overlay{
+    opacity:0;
+    transition:.3s ease;
+    background:linear-gradient(
+    to top,
+    rgba(0,0,0,.35),
+    rgba(0,0,0,.05)
+    );
+    backdrop-filter:blur(2px);
+}
+
+.ai-listing-card:hover .card-img-overlay{
+    opacity: 0.6;
+}
+.ai-listing-card:hover .unchecked{
+    color:#FF385C;
+    transform:scale(1.1);
+}
+
+input[type="radio"]{
+    display:none;
+}
+
+
+/* + means "Select the very next sibling." */
+/* means:-"If this input is checked, style the next .ai-listing-card." */
+input[type="radio"]:checked + .ai-listing-card{
+    border:1.5px solid #FF385C;
+    box-shadow:0 10px 24px rgba(255,56,92,.16);
+}
+/* Hides the scrollbar */
+.listingscrollbar::-webkit-scrollbar{
+    display:none;
+}
+
+.listingscrollbar{
+    scrollbar-width:none;
+}
+
+.checked{
+    display:none;
+}
+
+input[type="radio"]:checked + .ai-listing-card .checked{
+    /* Why inline specifically?
+    Because an <i> element is inline by default. We just want to restore its normal behavior after hiding it with display: none. */
+    display:inline;
+}
+
+input[type="radio"]:checked + .ai-listing-card .unchecked{
+    display:none;
+}
+
+
+input[type="radio"]:checked + .ai-listing-card .card-img-overlay{
+    opacity:1;
+}
+.card-body{
+    display:flex;
+     flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    gap:.45rem;
+}
+.select-icon{
+    font-size: 1.4rem;  
+    transition: .25s ease;
+}
+.unchecked{
+    color: #BDBDBD;
+}
+
+.checked{
+    color: #FF385C;
+}
+
+
+
+.title-row{
+    display:flex;
+    align-items:center;
+    gap:.6rem;
+    width:100%;
+}
+
+.select-icon{
+    flex:0 0 auto;      /* Don't let the icon shrink */
+    font-size:1.3rem;
+}
+
+.card-title{
+    flex:1;
+    min-width:0;        /* Important for ellipsis in flex */
+    margin:0;
+    white-space:nowrap; /* Keep text on one line */
+    overflow:hidden;     /* Hide text that doesn't fit */
+     text-overflow:ellipsis;  /* Show ... for hidden text  ☐ Luxury Penthouse...  | */
+    font-size:1rem;
+    font-weight:600;
+}
+
+
+/* styling ai kpi cards */
+.ai-kpi-card{
+    width:100%;
+    display:flex;
+    flex-direction: column;
+    gap:1rem;
+    padding:0.8rem;
+    background:#fff;
+    border:1px solid #ebebeb;
+    border-radius:18px;
+    transition:.25s ease;
+}
+.prediction-header{
+    display:flex;
+    align-items:center;
+    gap:.7rem;
+    margin-bottom:2rem;
+}
+
+.prediction-header i{
+    color:#F59E0B;
+    font-size:1.3rem;
+}
+
+.prediction-header h3{
+    margin:0;
+    font-size:1.4rem;
+    font-weight:700;
+}
+
+.price-comparison{
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    align-items:center;
+    gap:1rem;
+}
+.price-box{
+    flex:1;
+    text-align:center;
+    
+}
+
+.price-box .label{
+    color:#6b7280;
+    margin-bottom:.4rem;
+}
+
+.price-box h2{
+    margin:0;
+    font-weight:600;
+    font-size:2.2rem;
+}
+
+.price-box span{
+    color:#6b7280;
+}
+.arrow{
+    width:1px;
+    height:90px;
+    background:#ececec;
+    position:relative;
+}
+
+.arrow i{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:white;
+    padding:.3rem;
+    color:#b5b5b5;
+}
+
+/* occupancy kpi styling */
+.occupancy-content{
+    display:flex;
+    align-items:center;
+    
+}
+
+.occupancy-icon{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:2rem;
+    flex-shrink:0;
+}
+
+.occupancy-icon.high{
+    background:#EAFBF2;
+    color:#00A76F;
+}
+
+.occupancy-icon.low{
+    background:#FFF3E8;
+    color:#F59E0B;
+}
+
+
+
+.occupancy-result h3{
+    margin:0 0 .6rem;
+    font-size:1.2rem;
+    font-weight:700;
+}
+
+.occupancy-result p{
+    margin:0;
+    color:#6B7280;
+    line-height:1.6;
+}
+.occupancy-result{
+    display:none;
+    text-align:center;
+}
+
+.occupancy-result.active{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:1rem;
+}

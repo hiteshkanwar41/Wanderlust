@@ -1,0 +1,465 @@
+
+  <% if(fromHost) {%>
+        <% layout("/layouts/analytics.ejs") %>
+    <% } 
+    else{ %>
+        <% layout("/layouts/boilerplate.ejs") %>
+    <% } %>
+        
+   
+    <div class="row mt-4">
+        <div class="col-12 col-lg-7 offset-1">
+            <h2 class="show-title mb-4">
+                <%= listing.title %>
+            </h2>
+             
+
+            <div class="show-wrapper">
+
+                 <div class="show-image-wrapper">
+                    <img
+                        src="<%= listing.image.url %>"
+                        class="show-img"
+                        alt="listing image"
+                    >
+                </div>
+
+                <div class="show-info">
+
+                    <p class="show-description">
+                        <%= listing.description %>
+                    </p>
+
+                    
+                   
+                    <h4 class="show-price" id="pricePerNight" data-price="<%= listing.price %>"> 
+                        <%# Hidden data attribute (for JavaScript)
+                        data-price="2500" 
+                        How JavaScript reads it
+                        const element = document.getElementById("pricePerNight");
+                        console.log(element.dataset.price);
+                         %>
+                        $ <%= listing.price.toLocaleString("en-IN") %>
+                        <span>/ night</span>
+                    </h4>
+                    
+
+                    <p class="show-location">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <%= listing.neighbourhood %>, <%= listing.city %>
+                    </p>
+
+                    <div class="show-details">
+                        <span><i class="fa-solid fa-house"></i> <%= listing.roomType %></span>
+                        <span><i class="fa-solid fa-user-group"></i> <%= listing.accommodates %> Guests</span>
+                        <span><i class="fa-solid fa-bed"></i> <%= listing.bedrooms %> Bedroom<%= listing.bedrooms !== 1 ? "s" : "" %></span>
+                        <span><i class="fa-solid fa-bed"></i> <%= listing.beds %> Bed<%= listing.beds !== 1 ? "s" : "" %></span>
+                        <span><i class="fa-solid fa-bath"></i> <%= listing.bathrooms %> Bathroom<%= listing.bathrooms !== 1 ? "s" : "" %></span>
+                    </div>
+
+            </div>
+
+            </div>
+             
+        </div> 
+        
+        <div class="col-lg-3 ">
+             <div class="booking-pannel">
+                    <div class="booking-header">
+                        <div class="booking-icon">
+                        <i class="fa-solid fa-tag"></i>
+                        </div>
+                        <div class="booking-text">
+                        <p> Prices include all fees</p>
+                        </div>
+                    </div>
+                    
+                   <div class="booking-body">
+                    <div class="booking-price">
+                        <h4 class="booking-total-price" id="price"><u>$410</u></h4>
+                        <span class="booking-price-text" id="price-text">
+                            for 2 nights
+                        </span>
+                    </div>   
+                    <form id="bookingForm">
+                            <div class="booking-section row">
+                               
+                                <div class="booking-field col-5">
+                                <label for="checkIn">CHECK-IN</label>
+                                <input
+                                    type="date"
+                                    id="checkIn"
+                                    name="booking[checkIn]"
+                                    required
+                                >
+                            </div>
+                            <div class="col-auto px-0 d-flex">
+                                <div class="vertical-bar"></div>
+                            </div>
+                            
+                            <div class="booking-field col-5">
+                                <label for="checkOut">CHECK-OUT</label>
+                                <input
+                                    type="date"
+                                    id="checkOut"
+                                    name="booking[checkOut]"
+                                    required
+                                >
+                            </div>
+                            <div class="horizontal-row"></div>
+                            
+                            <div class="booking-field col-12">
+                                <label for="guests">GUESTS</label>
+                                <select id="guests" name="booking[guests]">
+                                    <% for(let i=1;i<=listing.accommodates;i++){ %>
+                                        <option value="<%= i %>">
+                                            <%= i %> Guest<%= i>1 ? "s" : "" %>
+                                        </option>
+                                    <% } %>
+                                </select>
+                            </div>
+                            </div>
+                           
+
+                            <button class=" reserve-btn mt-4" id="rzp-button1">
+                                Reserve
+                            </button>
+
+                        </form>
+                    </div>
+             </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4 ps-lg-2">
+             <div class="owner mt-3 col-12 col-lg-7 offset-1">
+                <div class="ownerimage">
+                        <div class="imagecircle">
+                                 <i class="fa-solid fa-user"></i>
+                        </div>
+                </div>
+                <div class="ownerinfo">
+                        <p>Hosted by <%= listing.owner.username %></p>
+                </div>
+        </div>
+    </div>
+       
+    <div class="row mt-4">
+         <div class="mt-3 mb-3 col-lg-11 offset-1">
+             
+                <%# IMPORTANT:
+                    Don't compare MongoDB ObjectIds using === or !==.
+                    They are objects, so JavaScript compares their references, not their values.
+                    Even if both ObjectIds look identical, === will return false.
+                    Always use:
+                    currUser._id.equals(listing.owner._id)
+                    or
+                    String(currUser._id) === String(listing.owner._id)
+                %>
+              
+
+                <% if(currUser && !currUser._id.equals(listing.owner._id)) {%>
+                <hr>    
+                <h4>Leave a Review</h4>
+                <form method="POST" action="/listings/<%= listing._id %>/reviews" novalidate class="needs-validation">
+                <div class="mb-3 mt-3">
+                    <label for="rating" class="form-label">Rating</label>
+                    <fieldset class="starability-growRotate">
+                        <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+                        <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                        <label for="first-rate1" title="Terrible">1 star</label>
+                        <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                        <label for="first-rate2" title="Not good">2 stars</label>
+                        <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                        <label for="first-rate3" title="Average">3 stars</label>
+                        <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                        <label for="first-rate4" title="Very good">4 stars</label>
+                        <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                        <label for="first-rate5" title="Amazing">5 stars</label>
+                    </fieldset>
+                </div>
+                
+
+                <div class="mb-3 mt-3">
+                    <label for="comment" class="form-label">Comments</label>
+                    <textarea name="review[comment]" id="comment" placeholder="Enter your review" 
+                    class="form-control" cols="5" rows="6" required></textarea>
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Please add some comments for review</div>
+                </div>
+                
+                <button class="btn btn-outline-dark">Submit</button>
+            </form>
+            <% } %>
+            
+
+            <br>
+            <hr>
+            <p><b>All reviews</b></p>
+            <div class="row" >
+                <% for (review of listing.reviews){  %>
+                    <div class="card col-5 mt-3 mb-3 ms-3">
+                        <h5 class="card-title">@<%=review.author.username%></h5>
+                        <p class="card-text starability-result" data-rating="<%= review.rating %>"></p>
+                        <p class="card-text"><%= review.comment %> </p>
+                        <% if(currUser && currUser._id.equals(review.author._id)) {%>
+                        <form method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"class="mb-3 delete-form">
+                            <button class="btn btn-sm btn-dark">Delte</button>
+                        </form> 
+                        <% } %>
+                    </div>   
+                <% } %>
+                
+            </div>
+        </div> 
+    </div>
+        
+
+
+<%# Razorpay Checkout SDK:%>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+<script>
+    
+    const checkIn=document.getElementById("checkIn");
+    const checkOut=document.getElementById("checkOut");
+    const guests=document.getElementById("guests");
+    const price=document.getElementById("price");
+    const priceText=document.getElementById("price-text");
+    
+    let pricePerNightElement=document.getElementById("pricePerNight");
+    let pricePerNight = Number(document.getElementById("pricePerNight").dataset.price);
+    
+    //currency item is set in index.js page
+    const currency = sessionStorage.getItem("currency") || "USD";
+    
+    if (currency === "INR") {
+        const conversionRate=Number(sessionStorage.getItem("conversionRate"));
+        pricePerNight=Number(pricePerNight.toFixed(2)) ;
+        pricePerNight=pricePerNight*conversionRate;
+        pricePerNightElement.innerHTML = `₹ ${pricePerNight.toFixed(2)}<span>/ night</span>`;
+    }else{
+        console.log(pricePerNight);
+        console.log(typeof pricePerNight);
+        pricePerNight=Number(pricePerNight.toFixed(2)) ;
+        console.log(pricePerNight);
+        console.log(typeof pricePerNight);
+        pricePerNightElement.innerHTML = `$ ${pricePerNight.toFixed(2)}<span>/ night</span>`;
+    }
+
+    const today = new Date().toISOString().split("T")[0];
+    const twoDays = 2 * 24 * 60 * 60 * 1000;
+    const dayAfterTomorrow = new Date(Date.now()+twoDays).toISOString().split("T")[0];
+    
+    checkIn.min = today;
+    checkOut.min = today;
+    if(sessionStorage.getItem("checkOut") && sessionStorage.getItem("checkIn")){
+        checkIn.value=sessionStorage.getItem("checkIn");
+        checkOut.value=sessionStorage.getItem("checkOut");
+    }else{
+        checkIn.value=today;
+        checkOut.value=dayAfterTomorrow;
+    }
+    
+    
+    function animate(element, startval,targetValue, symbol="",duration = 1000) {
+    let startTimestamp = null;
+    const startValue = startval; // Or current value if you want to animate from existing
+
+    function step(timestamp) {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        
+        // Calculate the current value
+        const currentValue = startValue + (targetValue - startValue) * progress;
+        
+        // Update the UI
+       if (symbol === "$" || symbol === "₹") {
+            const locale = symbol === "₹" ? "en-IN" : "en-US";
+
+            element.textContent =
+                symbol +
+                currentValue.toLocaleString(locale, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                });
+        }else{
+            element.textContent = currentValue.toLocaleString()+symbol;
+        }
+
+        if (progress < 1) {
+            window.requestAnimationFrame(step);
+        }
+    }
+    window.requestAnimationFrame(step);
+    }
+    
+    let prevPrice=0;
+    function updateBooking() {
+    if (!checkIn.value || !checkOut.value) return;
+    //Date objects internally store time as the number of milliseconds since January 1, 1970 (UTC),
+    const inDate = new Date(checkIn.value);
+    const outDate = new Date(checkOut.value);
+    
+    const nights = (outDate - inDate) / (1000 * 60 * 60 * 24);
+
+    if (nights <= 0) {
+        alert("Check-out date must be after check-in date.");
+        return;
+    }
+
+
+    if(nights){
+        
+       
+        // price.innerText = `$${pricePerNight * nights}`;
+        let symbol=currency==="USD"?"$":"₹";
+        animate(price,prevPrice,pricePerNight * nights,symbol);
+        prevPrice=pricePerNight * nights;
+        priceText.innerText=`for ${nights} night${nights !== 1 ? "s" : ""}`;
+    }
+}
+updateBooking();
+
+
+checkIn.addEventListener("change", () => {
+    const nextDay = new Date(checkIn.value);
+    nextDay.setDate(nextDay.getDate() + 1);
+    //make checkout at least one day after check-in:
+    checkOut.min = nextDay.toISOString().split("T")[0];
+
+    if (checkOut.value < checkOut.min) {
+        checkOut.value = checkOut.min;
+        sessionStorage.setItem("checkOut",checkOut.value);
+    }
+    sessionStorage.setItem("checkIn",checkIn.value);
+    sessionStorage.setItem("checkOut",checkOut.value);
+
+    updateBooking();
+});
+
+checkOut.addEventListener("change",()=>{
+    sessionStorage.setItem("checkIn",checkIn.value);
+    sessionStorage.setItem("checkOut",checkOut.value);
+    updateBooking();
+});
+
+//implementing rozarpay functionality
+   
+   async function payNow() {
+      
+    try {
+            const response = await axios.post(
+                "/listings/<%= listing._id %>/create-order",
+                {
+                    booking: {
+                        checkIn:checkIn.value,
+                        checkOut:checkOut.value,
+                        guests:guests.value
+                    }
+                }
+            );
+
+            const order = response.data;
+            
+
+            const options = {
+                key: "<%= process.env.RAZORPAY_KEY_ID %>", 
+                amount: order.amount,
+                currency: order.currency,
+                name: "WanderLust",
+                description: "Booking Payment",
+                order_id: order.id,
+
+                handler: async function (response) {
+                   
+                    try {
+                         const res = await axios.post("/payment/verify",
+                        {
+                            ...response,
+                            listingId: "<%= listing._id %>",
+                            booking: {
+                                checkIn: checkIn.value,
+                                checkOut: checkOut.value,
+                                guests: guests.value
+                            }
+                        });
+
+                        if (res.data.success) {
+                            //Browser session (sessionStorage) this is not express session its different
+                            //This lives in the browser.
+                            sessionStorage.setItem("flashSuccess", res.data.message);
+                            
+                            //what happens after redirect that code is written at bottom
+                            //we will retrieve message from session and pass in window.flashSuccess
+                            window.location.href = res.data.redirectUrl;
+                            
+                        }
+                       
+
+                    } catch (error) {
+                        throw error;
+                    }
+                   
+                },
+
+                prefill: {
+                    name: "<%= currUser ? currUser.username : '' %>",
+                    email: "<%= currUser ? currUser.email : '' %>",
+                    
+                },
+
+                theme: {
+                    color: "#FF385C"
+                }
+            };
+
+            const rzp = new Razorpay(options);
+            rzp.open();
+        } catch (err) {
+            throw err;
+        }
+    }
+
+    function openBookingLoginModal() {
+        
+            const modalElement = document.getElementById("signupModal");
+
+        document
+            .querySelector(".modal-content")
+            .classList.add("active");
+
+        const modal = new bootstrap.Modal(modalElement);
+        modal.show();
+    }
+
+
+
+    document.getElementById("bookingForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+            try {
+               
+                await payNow();
+            }catch (err) {
+                if (
+                    err.response?.status === 401 &&
+                    err.response.data.openLoginModal
+                ) {
+                    openBookingLoginModal();
+                    return;
+                }
+
+          
+   
+    }
+    });
+//now message is shifted to bookings.ejs
+    // const message = sessionStorage.getItem("flashSuccess");
+
+   // if (message) {
+        //window.flashSuccess = message;
+        //sessionStorage.removeItem("flashSuccess");
+    //}
+
+</script>

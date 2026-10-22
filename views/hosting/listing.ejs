@@ -1,0 +1,145 @@
+<% layout('layouts/analytics.ejs') -%>
+<style>
+
+.wrapper{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+.listing-count,
+.add-btn{
+    height:48px;
+    height:fit-content;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.listing-count{
+    background:linear-gradient(135deg,#FF385C,#E61E4D);
+    margin:5px;
+    color:#fff;
+    padding:.8rem 1.6rem;
+    border-radius:50px;
+    font-size:1rem;
+    font-weight:600;
+    box-shadow:0 6px 16px rgba(255,56,92,.22);
+}
+
+.add-btn{
+    color:#fff;
+    margin:5px;
+    padding:.8rem 1.6rem;
+    border-radius:50px;
+    font-size:1rem;
+    font-weight:600;
+    box-shadow:0 6px 16px rgba(255,56,92,.22);
+    transition:background-color .2s ease,
+               box-shadow .2s ease,
+               transform .2s ease;
+}
+
+.add-btn:hover{
+    background:#FF385C;
+    color:#fff;
+    border:none;
+    transform: translateY(4px);
+    box-shadow:0 8px 22px rgba(255,56,92,.3);
+}
+
+.card-footer{
+    padding:1rem 1.25rem 1.25rem;
+}
+
+.card-footer .btn{
+    border-radius:10px;
+    padding:.45rem 1rem;
+    transition:.25s;
+}
+
+.btn-outline-dark:hover{
+    background:#222;
+}
+
+.btn-outline-danger:hover{
+    background:#dc3545;
+}
+
+.listing-link{
+    text-decoration:none;
+    color:inherit;
+}
+
+.allListings{
+    padding-bottom:2rem;
+}
+
+.subContainer{
+    padding:4rem;
+}
+
+
+</style>
+
+<div class="subContainer">
+    <div class="listing-header mb-3 ms-3 me-3 ">
+    <div>
+        <h2>Your Listings</h2>
+        <p>Manage and edit all your hosted properties.</p>
+    </div>
+    <div class="wrapper">
+         <div class="listing-count">
+            <%= mylistings.length %> Listings
+        </div>
+    <a class="btn btn-dark add-btn" href="/hosting/new">Add New Listing</a>
+    </div>
+   
+</div>
+<div class="allListings mt-4 mb-3 ms-3 me-3">
+     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <% for(listing of mylistings){ %>
+        <div class="col">
+            <a href="/hosting/<%= listing._id %>" class="listing-link">
+                <div class="card h-100 listing-card">
+
+                     <div class="image-wrapper">
+                    <img src="<%= listing.image.url %>"
+                    class="card-img-top"
+                    alt="listing">
+
+                    <div class="card-img-overlay"></div>
+                </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title"><%= listing.title %></h5>
+
+                        <span class="price-badge">
+                           $<%= listing.price.toLocaleString("en-US") %> / night
+                        </span>
+                    </div>
+
+                    <div class="card-footer d-flex justify-content-end gap-2 bg-white border-0">
+
+                        <a href="/hosting/<%= listing._id %>/edit"
+                        class="btn btn-light rounded-circle shadow-sm">
+                            <i class="fa-solid fa-pen"></i>
+                        </a>
+                        <form method="POST" action="/hosting/<%= listing._id %>?_method=DELETE" class="delete-form">
+                            <button class="btn btn-light rounded-circle shadow-sm text-danger" >
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </form>
+                        
+
+                </div>
+
+                </div>
+             
+        </a>
+       
+        </div>
+    <% } %>
+</div>
+</div>
+</div>
+

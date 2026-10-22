@@ -1,0 +1,33 @@
+<% layout('layouts/analytics.ejs') -%>
+
+
+<div class="sub-container">
+    <%- include("../includes/analyticsSidebar.ejs") %>
+    <div class="content">
+
+    <div class="welcome-card">
+
+    <div class="welcome-left">
+        <img src="https://res.cloudinary.com/lxlylk0n/image/upload/v1792675849/analytics_home_ru0ztt.png" alt="Analytics Dashboard">
+    </div>
+
+    <div class="welcome-right">
+      
+
+    <p class="subtitle">HOST DASHBOARD</p>
+
+    <h1>Welcome back,<br><%= currUser.username %> 👋</h1>
+
+    <p class="description">
+        Welcome to your Host Dashboard. Use the menu on the left to manage
+        your listings, monitor performance, and explore insights.
+    </p>
+
+   
+    <a href="/hosting/analytics/overview" class="start-btn">Explore Overview →</a>
+    </div>
+
+</div>
+
+</div>
+</div>

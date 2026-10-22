@@ -1,0 +1,215 @@
+<% layout('layouts/analytics.ejs') -%>
+
+<% block('head').append('<link rel="stylesheet" href="/css/booking.css">') %>
+
+<div class="row">
+    <div class="col col-lg-10 mx-auto">
+        <div class="listing-header align-items-start mb-3 ms-3 me-3 mt-3">
+            <div>
+                <h2>Hosting Dashboard</h2>
+                <p>Overview of your properties,ookings and performance.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col col-lg-10 mx-auto">
+        
+        <div class="info-cards">
+            
+           
+            <!-- Total Bookings -->
+            <div class="info-card">
+                <div class="info-icon">
+                    <div class="icon purple">
+                        <i class="fa-solid fa-book"></i>
+                    </div>
+                </div>
+                <div class="info-text">
+                    <p>Total Bookings</p>
+                    <h4 style="color:#7c3aed;"><%= info.totalBookings %></h4>
+                </div>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-icon">
+                    <div class="icon teal">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+                </div>
+                <div class="info-text">
+                    <p>Total Reviews</p>
+                    <h4 style="color: #0f766e;"><%=info.totalReviews%></h4>
+                </div>
+            </div>
+               <!-- reviews -->
+            <div class="info-card">
+                <div class="info-icon">
+                    <div class="icon gold">
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                </div>
+                <div class="info-text">
+                    <p>Avg Rating</p>
+                    <h4 style="color:#D97706;"><%=info.avgRating%></h4>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="info-icon">
+                    <div class="icon orange">
+                        <i class="fa-solid fa-wallet"></i>
+                    </div>
+                </div>
+                <div class="info-text">
+                    <p>Total Earnings</p>
+                    <h4 style="color:#ea580c;">₹<%=info.totalEarnings%>K</h4>
+                </div>
+            </div>
+        </div>
+         
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col-lg-10 mx-auto">
+        <div class="booking-filters">
+
+            <a href="/hosting"
+            class="filter-btn <%= !filter ? 'active' : '' %>">
+                 Ongoing Stays
+            </a>
+
+            <a href="/hosting?filter=upcoming"
+            class="filter-btn <%= filter==='upcoming' ? 'active' : '' %>">
+                Upcoming
+            </a>
+
+            <a href="/hosting?filter=completed"
+            class="filter-btn <%= filter==='completed' ? 'active' : '' %>">
+                Completed
+            </a>
+
+           
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="row mt-4 mb-4">
+    <div class="col-lg-10 mx-auto">
+        <% if(bookings.length!=0){%>
+                <% for (const booking of bookings){  %>
+            <div class="booking-card row g-0">
+
+            <!-- Image -->
+            <div class="col-lg-4">
+                <div class="booking-img">
+                    <img src="<%= booking.listing.image.url %>" alt="img">
+                </div>
+            </div>
+
+            <!-- Details -->
+            <div class="col-lg-8">
+                <div class="booking-details">
+
+                    <div class="d-flex justify-content-between align-items-start ">
+                        <div class="booking-h">
+                            <h6><%= booking.listing.title%></h6>
+                            <p>
+                                <i class="fa-solid fa-location-dot"></i>
+                                <%= booking.listing.neighbourhood%>, <%= booking.listing.city%>
+                            </p>
+                        </div>
+
+                        <span class="status confirmed">
+                            <i class="fa-regular fa-circle-check"></i>
+                            Confirmed
+                        </span>
+                    </div>
+
+                    <div class="booking-info">
+
+                        <div class="booking-subinfo">
+                            <p><i class="fa-regular fa-calendar"></i> Check-in</p>
+                            <h6><%= booking.checkIn.toLocaleDateString("en-GB")%></h6>
+                        </div>
+
+                        <div class="booking-subinfo">
+                            <p><i class="fa-regular fa-calendar"></i> Check-out</p>
+                            <h6><%= booking.checkOut.toLocaleDateString("en-GB")%></h6>
+                        </div>
+
+                        <div class="booking-subinfo">
+                            <p><i class="fa-solid fa-user-group"></i> Guests</p>
+                            <h6><%= booking.guests%> Guests</h6>
+                        </div>
+
+                        <div class="booking-subinfo">
+                            <p><i class="fa-regular fa-moon"></i> Nights</p>
+                            <% 
+                               let nights = Math.round(
+                                    (new Date(booking.checkOut) - new Date(booking.checkIn))
+                                    / (1000 * 60 * 60 * 24)
+                                );
+                            %>
+                            <h6><%= nights%> Nights</h6>
+                        </div>
+
+                        <div class="booking-subinfo">
+                            <p>Total Price</p>
+                            <h6 class="price">₹<%= booking.totalPrice%> </h6>
+                        </div>
+
+                    </div>
+                    <div class="booking-footer">
+                        <p>Booked On <span style="font-weight: 600; margin-left: 2px;"><%= booking.createdAt.toDateString()%></span></p>
+                        <p>Booked By <span style="font-weight: 600; margin-left: 2px;"><%= booking.guest.username%></span></p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <% } %>
+        <% } 
+        else{%> 
+            <div class="empty-bookings">
+
+            <img src="https://res.cloudinary.com/lxlylk0n/image/upload/v1792675849/noBooking_rsivwl.png" alt="No bookings">
+
+            <% if (!filter) { %>
+
+                <h2>You don't have any ongoing stays</h2>
+                <p>
+                    You don't have any guests staying at your properties right now.
+                </p>
+
+            <% } else if (filter === "upcoming") { %>
+
+                <h2>You don't have any upcoming stays</h2>
+                <p>
+                    When guests book your properties, their upcoming stays will appear here.
+                </p>
+
+            <% } else if (filter === "completed") { %>
+
+                <h2>You don't have any completed stays</h2>
+                <p>
+                    Your completed reservations will appear here after guests finish their stays.
+                </p>
+
+            <% } %>
+
+        </div>
+        <% } %>
+        
+        
+    </div>
+</div>
+
+
+

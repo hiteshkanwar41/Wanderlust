@@ -1,0 +1,17 @@
+<% if(success && success.length){ %>
+<script>
+    window.flashSuccess = "<%= success[0] %>";
+</script>
+<% } %>
+
+<% if(error && error.length){ %>
+<script>
+    window.flashError = "<%= error[0] %>";
+</script>
+<% } %>
+
+<% if(warning && warning.length){ %>
+<script>
+    window.flashWarning = "<%= warning[0] %>";
+</script>
+<% } %>

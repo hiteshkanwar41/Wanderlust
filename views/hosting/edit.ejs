@@ -1,0 +1,283 @@
+<% layout("/layouts/analytics.ejs") %>
+<style>
+    body{
+    background: linear-gradient(
+        180deg,
+        #fff5f6 0%,
+        #ffffff 35%,
+        #f8f9fa 100%
+    );
+}
+</style>
+<div class="row mt-4 mb-4">
+    <div class="col-lg-8 offset-lg-2">
+
+        <div class="listing-form-card">
+
+            <div class="form-header">
+                <h3>Edit Your Listing</h3>
+            </div>
+
+            <div class="form-body">
+
+                <form method="POST" action="/hosting/<%= listing._id %>?_method=PUT" novalidate class="needs-validation" id="editForm">
+                
+                <div class="mb-3">
+                    <label for="title" class="form-label">Tittle</label> 
+                    <input name="listing[title]" placeholder="Add a catchy tittle" type="text" class="form-control" value="<%= listing.title %>" required>
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Please choose a title.</div>
+                </div>
+            
+            <div class="mb-3">
+                    <label for="description" class="form-label">Description</label> 
+                    <textarea name="listing[description]" placeholder="Enter description" class="form-control" id="description" required ><%= listing.description %></textarea>
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Please Enter description.</div>
+                </div>
+                
+                
+               <div class="mb-3">
+                        <label for="img" class="form-label">Upload Listing Image</label> 
+                        <input type="file" class="form-control" id="img" >
+                        <div class="valid-feedback"></div>
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">Please enter a valid image URL.</div>
+                        
+                </div>
+                   <%# these are made for directly uploading image to cloudinary %> 
+                    <%# and storing the imp data in hidden format so that it is directly send to backend when form submitted. %>
+                <p id="message" style="display:none;">uploading...</p>
+                <div id="progressContainer" class="progress mt-1 col-6 " role="progressbar" style="height:14px;display:none;">
+                        <div id="progressBar" class="progress-bar " style="width:0%;background-color:#FF385C;"></div>
+            
+                </div>
+                    
+
+                <input type="hidden" name="listing[image][url]" id="imageUrl">
+                <input type="hidden" name="listing[image][filename]" id="imageFilename">
+                    
+                <div class="row">
+                        <div class="mb-3 col-md-4">
+                        <label for="price" class="form-label">Price</label> 
+                        <input name="listing[price]" placeholder="1200" type="number" class="form-control" id="price" value="<%= listing.price %>" required>
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">Please enter the price.</div>
+                    </div>
+                
+                    <div class="mb-3 col-md-8">
+                        <label for="city" class="form-label">City</label> 
+                         <select name="listing[city]" id="city" class="form-control form-select"required>
+                            <option value="" selected disabled>Select a city</option>
+                            <option value="London" <%= listing.city === "London" ? "selected" : "" %>>London</option>
+                            <option value="Paris" <%= listing.city === "Paris" ? "selected" : "" %>>Paris</option>
+                            <option value="Newyork" <%= listing.city === "New York" ? "selected" : "" %>>New York</option>
+                            <option value="Amsterdam" <%= listing.city === "Amsterdam" ? "selected" : "" %>>Amsterdam</option>
+                        </select>
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">Please select a city</div>
+                    </div>
+            </div>
+                
+                
+                <div class="mb-3">
+                        <label for="neighbourhood" class="form-label">Neighbourhood</label> 
+                        <select
+                            name="listing[neighbourhood]"
+                            id="neighbourhood"
+                            required
+                        >
+                        </select>
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">Please enter the neighbourhood.</div>
+                    </div>
+
+                <div class="row">
+
+                        <!-- Room Type -->
+                        <div class="mb-3 col-md-6">
+                            <label for="roomType" class="form-label">Room Type</label>
+                            <select name="listing[roomType]" id="roomType" class="form-control form-select" required>
+                                <option value="" selected disabled>Select room type</option>
+                                <option value="Entire home/apt" <%= listing.roomType === "Entire home/apt" ? "selected" : "" %>>Entire home/apt</option>
+                                <option value="Private room" <%= listing.roomType === "Private room" ? "selected" : "" %>>Private room</option>
+                                <option value="Shared room" <%= listing.roomType === "Shared room" ? "selected" : "" %>>Shared room</option>
+                                <option value="Hotel room" <%= listing.roomType === "Hotel room" ? "selected" : "" %>>Hotel room</option>
+                            </select>
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">Please select a room type.</div>
+                        </div>
+
+                        <!-- Accommodates -->
+                        <div class="mb-3 col-md-6">
+                            <label for="accommodates" class="form-label">Accommodates</label>
+                            <input
+                                type="number"
+                                class="form-control"
+                                id="accommodates"
+                                name="listing[accommodates]"
+                                min="1"
+                                placeholder="e.g. 4"
+                                required
+                                value="<%= listing.accommodates %>"
+                            >
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">Please enter the number of guests.</div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <!-- Bedrooms -->
+                        <div class="mb-3 col-md-4">
+                            <label for="bedrooms" class="form-label">Bedrooms</label>
+                            <input
+                                type="number"
+                                class="form-control"
+                                id="bedrooms"
+                                name="listing[bedrooms]"
+                                min="0"
+                                placeholder="e.g. 2"
+                                required
+                                value="<%= listing.bedrooms %>"
+                            >
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">Please enter the number of bedrooms.</div>
+                        </div>
+
+                        <!-- Bathrooms -->
+                        <div class="mb-3 col-md-4">
+                            <label for="bathrooms" class="form-label">Bathrooms</label>
+                            <input
+                                type="number"
+                                class="form-control"
+                                id="bathrooms"
+                                name="listing[bathrooms]"
+                                min="0"
+                                step="0.5"
+                                placeholder="e.g. 1.5"
+                                required
+                                value="<%= listing.bathrooms %>"
+                            >
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">Please enter the number of bathrooms.</div>
+                        </div>
+
+                        <!-- Beds -->
+                        <div class="mb-3 col-md-4">
+                            <label for="beds" class="form-label">Beds</label>
+                            <input
+                                type="number"
+                                class="form-control"
+                                id="beds"
+                                name="listing[beds]"
+                                min="1"
+                                placeholder="e.g. 2"
+                                required
+                                value="<%= listing.beds %>"
+                            >
+                            <div class="valid-feedback">Looks good!</div>
+                            <div class="invalid-feedback">Please enter the number of beds.</div>
+                        </div>
+
+                    </div>
+            
+                
+                
+                <button class="btn btn-dark edit-btn mt-3">Add</button>
+            </form>
+
+   
+            </div>
+
+        </div>
+
+    </div>
+</div>   
+
+<script>
+    
+    let public_id = "<%= listing.image.filename %>";
+
+    const img=document.getElementById("img");
+    const progressContainer = document.getElementById("progressContainer");
+    const progressBar = document.getElementById("progressBar");
+    const message = document.getElementById("message");
+    
+    let finished = false;
+
+    img.addEventListener("change",async()=>{
+       const oldPublic_id=public_id;
+        finished = false;
+        try {
+        const file = img.files[0];
+        if (!file) return;
+        
+        img.disabled = true;
+        // Show progress UI
+        message.innerText = "Uploading...";
+        message.style.display = "block";
+        progressContainer.style.display = "flex";
+
+        // Reset progress
+        progressBar.style.width = "0%";
+        progressBar.innerText = "0%";
+
+
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", "wanderlust_unsigned");
+        const response = await axios.post(
+            "https://api.cloudinary.com/v1_1/lxlylk0n/image/upload",
+            formData,{
+                // You're telling Axios:
+                // "Whenever the upload makes progress, call this function."
+                onUploadProgress:(event)=>{
+                    const percent=Math.round(
+                            (event.loaded * 100) / event.total
+                        );
+                    progressBar.style.width = `${percent}%`;
+                    progressBar.innerText = `${percent}%`;
+                }
+            }
+        );
+        if(oldPublic_id){
+         await axios.post("/hosting/cloudinary/delete-img",{public_id: oldPublic_id});
+       }
+        public_id = response.data.public_id;
+        
+        document.getElementById("imageUrl").value = response.data.secure_url;
+        document.getElementById("imageFilename").value = response.data.public_id;
+        finished = true;
+        message.innerText = "Upload Complete!";
+        
+        setTimeout(() => {
+
+                message.style.display = "none";
+                progressContainer.style.display = "none";
+
+                progressBar.style.width = "0%";
+                progressBar.innerText = "0%";
+
+        }, 1000);
+        } catch (err) {
+            console.log(err.response?.data || err);
+            message.innerText = "Upload Failed!";
+            finished = false;
+        }finally {
+            //finally is part of JavaScript's error handling.
+            //finally runs no matter what happens.
+            img.disabled = false;
+        }
+        
+    });
+
+     const form=document.querySelector("#editForm");
+    form.addEventListener("submit",(event)=>{
+        if (!finished && img.files.length > 0) {
+        event.preventDefault();
+        alert("Please wait for the image upload to finish.");
+    }
+    })
+    
+</script>

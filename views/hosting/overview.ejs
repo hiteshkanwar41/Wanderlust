@@ -1,0 +1,143 @@
+<% layout('layouts/analytics.ejs') -%>
+<% block('head').append('<link rel="stylesheet" href="/css/analytics_panel.css">') %>
+<div class="sub-container">
+    <%- include("../includes/analyticsSidebar.ejs") %>
+    <div class="content">
+        
+             <div class="page-title">
+                <h1>Market Overview</h1>
+                <p></p>
+            </div>
+            <form class="filterForm mb-3" action="/hosting/analytics/overview" method="GET">
+                
+                <div class="filters">
+                    <div class="filter-group">
+                        <label>Cities</label>
+                        <select id="city" name="city" class="filter-select">
+                            <option value="London" selected>London</option>
+                            <option value="Paris">Paris</option>
+                            <option value="Amsterdam">Amsterdam</option>
+                            <option value="Newyork">New York</option>
+                    </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Neighbourhood</label>
+                        <select name="neighbourhood" id="neighbourhood" class="filter-select" >
+                            <option value="" selected>All</option>
+                        </select>
+                    </div>
+
+                    <button class="apply-btn start-btn">
+                         Apply Filters
+                    </button>
+                
+                </div>
+            </form>     
+       
+        
+         <div class="kpi">
+            
+            <div class="kpi-card" id="total_listings">
+                <div class="kpi-icon">
+                        <i class="fa-solid fa-house"></i>  
+                </div>
+                <div class="kpi-content">
+                    <p class="kpi-title">Total Listings</p>
+                    <h4 class="kpi-value">1,234</h4>
+                    <p class="kpi-subtitle">All active listings</p>
+                </div>
+            </div>
+
+            <div class="kpi-card" id="average_price">
+                <div class="kpi-icon" style="background:#EAFBF2; color:#00A76F;">
+                    <i class="fa-solid fa-dollar-sign"></i>
+                </div>
+
+                <div class="kpi-content">
+                    <p class="kpi-title">Average Price</p>
+                    <h4 class="kpi-value">$152.32</h4>
+                    <p class="kpi-subtitle">Per night</p>
+                </div>
+            </div>
+            
+            <div class="kpi-card" id="median_price">
+                <div class="kpi-icon" style="background:#FFF8E8; color:#FF9800;">
+                    <i class="fa-solid fa-tag"></i>
+                </div>
+
+                <div class="kpi-content">
+                    <p class="kpi-title">Median Price</p>
+                    <h4 class="kpi-value">$120.00</h4>
+                    <p class="kpi-subtitle">Per night</p>
+                </div>
+            </div>
+
+            <div class="kpi-card" id="occupancy_rate">
+                <div class="kpi-icon" style="background:#F3E8FF; color:#9333EA;">
+                    <i class="fa-regular fa-calendar"></i>
+                </div>
+
+                <div class="kpi-content">
+                    <p class="kpi-title">Occupancy Rate</p>
+                    <h4 class="kpi-value">68.45%</h4>
+                    <p class="kpi-subtitle">Average / 365 days</p>
+                </div>
+            </div>
+
+            <div class="kpi-card" id="revenue_potential">
+                <div class="kpi-icon" style="background:#EAF3FF; color:#2563EB;">
+                    <i class="fa-solid fa-chart-column"></i>
+                </div>
+
+                <div class="kpi-content">
+                    <p class="kpi-title">Revenue Potential</p>
+                    <h4 class="kpi-value">$28,745</h4>
+                    <p class="kpi-subtitle">Average / year</p>
+                </div>
+            </div>  
+        </div>
+
+        <br><br>
+            <div class="chart-row">
+            <div class="chart-card" id="card-average-price">
+                <h5>Average Price by Room Type</h5>
+                <div style="position:relative; height:220px;">
+                    <canvas id="average_price_by_room_type"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card" id="card-price-distribution">
+                <h5>Price Distribution</h5>
+                <div style="position:relative; height:220px;">
+                    <canvas id="price_distribution"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-row">
+            <div class="chart-card" id="card-market-share">
+                <h5>Market Share by Room Type</h5>
+                <div style="position:relative; height:220px;">
+                    <canvas id="listings_by_room_type"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card" id="card-top-revenue">
+                <h5>Top 5 Highest Revenue Listings</h5>
+                <div style="position:relative; height:220px;">
+                    <canvas id="top_5_revenue_listings"></canvas>
+                </div>
+            </div>
+        </div>
+
+       <div class="chart-card full-width" id="card-revenue-bedroom">
+            <h5>Average Revenue by Bedrooms</h5>
+            <div style="position:relative; height:220px;">
+                <canvas id="revenue_by_bedrooms"></canvas>
+            </div>
+        </div>
+
+        
+        </div>
+    </div>
