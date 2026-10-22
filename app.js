@@ -80,8 +80,8 @@ const sessionOptions={
     }
 };
 
-app.get("/",(req,res)=>{
-    res.send("this is home route");
+app.get("/", (req, res) => {
+    res.redirect("/listings");
 });
 
 app.use(session(sessionOptions));
