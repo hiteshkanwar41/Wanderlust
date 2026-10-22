@@ -96,7 +96,7 @@ passport.use(new LocalStrategy({
 passport.use(new GoogleStrategy({
   clientID: GOOGLE_CLIENT_ID,
   clientSecret: GOOGLE_CLIENT_SECRET,
-  callbackURL: '/oauth2/redirect/google',
+  callbackURL: 'https://wanderlust-xm5e.onrender.com/oauth2/redirect/google',
   scope: [ 'profile','email' ]
 }, async function verify(issuer, profile, done) {
     try{
